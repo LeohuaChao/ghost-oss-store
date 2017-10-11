@@ -3,6 +3,7 @@ var fs = require('fs')
 var path = require('path')
 var Promise = require('bluebird')
 var OSS = require('ali-oss').Wrapper
+var url = require('url')
 
 try {
   var utils = require(path.join(process.cwd(), 'core/server/utils')) // for ghost-docker
@@ -31,7 +32,7 @@ class OssStore extends baseStore {
       .then(function (result) {
         // console.log(result)
         if(origin){
-          resolve(path.join(origin, result.name))
+          resolve(url.resolve(origin, result.name))
         }else{
           resolve(result.url)
         }      
